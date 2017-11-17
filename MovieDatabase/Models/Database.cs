@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace MovieDatabase.Models
 {
@@ -29,7 +30,6 @@ namespace MovieDatabase.Models
             if (Count() == 0)
             {
                 _index = -1;
-                
             }
             else
             {
@@ -64,7 +64,6 @@ namespace MovieDatabase.Models
             {
                 db.RemoveAt(_index);
                 Index();
-
             }
         }
 

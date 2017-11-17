@@ -1,0 +1,2 @@
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabaseTestProject\obj\Debug\MovieDatabaseTestProject.csprojResolveAssemblyReference.cache
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabaseTestProject\obj\Debug\MovieDatabaseTestProject.csproj.CoreCompileInputs.cache

@@ -8,10 +8,21 @@
        Title="Movie Database" Height="550"  Width="580" SizeToContent="WidthAndHeight">
 
     <Border Margin="5">
-
-        <!-- add layout design here -->
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File" x:Name="File">
+                    <MenuItem Header="_New" x:Name="New"/>
+                    <MenuItem Header="_Save" x:Name="Save"/>
+                    <Separator/>
+                    <!--<MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click"/>-->
+                </MenuItem>
+                <MenuItem Header="_Edit" x:Name="Edit"/>
+                <MenuItem Header="_View" x:Name="View"/>
+                <MenuItem Header="_Help" x:Name="Help"/>
+            </Menu>
+            <StackPanel>
+  
+            </StackPanel>
+        </DockPanel>
     </Border>
-
 </Window>
-

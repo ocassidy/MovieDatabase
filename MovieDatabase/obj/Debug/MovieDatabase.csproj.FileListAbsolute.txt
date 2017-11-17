@@ -1,0 +1,16 @@
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieView.g.cs
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\App.g.cs
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase_MarkupCompile.cache
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase_MarkupCompile.lref
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MovieDatabase.exe.config
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MovieDatabase.exe
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MovieDatabase.pdb
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\Newtonsoft.Json.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\Newtonsoft.Json.xml
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieView.baml
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.g.resources
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.Properties.Resources.resources
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.csproj.GenerateResource.Cache
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.csproj.CoreCompileInputs.cache
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.exe
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.pdb
