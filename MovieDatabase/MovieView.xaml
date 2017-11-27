@@ -5,24 +5,155 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieDatabase"
         mc:Ignorable="d"
-       Title="Movie Database" Height="550"  Width="580" SizeToContent="WidthAndHeight">
+       Title="Movie Database" Height="425"  Width="900" SizeToContent="WidthAndHeight">
 
     <Border Margin="5">
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File" x:Name="File">
-                    <MenuItem Header="_New" x:Name="New"/>
-                    <MenuItem Header="_Save" x:Name="Save"/>
+                    <MenuItem Header="_New" x:Name="New" Click="New_Click"/>
+                    <MenuItem Header="_Open" x:Name="Open" Click="Open_Click"/>
+                    <MenuItem Header="_Save" x:Name="Save" Click="Save_Click"/>
                     <Separator/>
-                    <!--<MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click"/>-->
+                    <MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click"/>
                 </MenuItem>
-                <MenuItem Header="_Edit" x:Name="Edit"/>
-                <MenuItem Header="_View" x:Name="View"/>
-                <MenuItem Header="_Help" x:Name="Help"/>
+                
+                <MenuItem Header="_Edit" x:Name="Edit" Click="Edit_Click">
+                    <MenuItem Header="_Create" x:Name="Create" Click="Create_Click"/>
+                    <Separator/>
+                    <MenuItem Header="_Edit" x:Name="eEdit" Click="eEdit_Click"/>
+                    <MenuItem Header="_Delete" x:Name="Delete" Click="Delete_Click"/>
+                </MenuItem>
+
+                <MenuItem Header="_View" x:Name="View" Click="View_Click">
+                    <MenuItem Header="_Sort by Title" x:Name="byTitle" Click="byTitle_Click"/>
+                    <MenuItem Header="_Sort by Year" x:Name="byYear" Click="byYear_Click"/>
+                    <MenuItem Header="_Sort by Duration" x:Name="byDuration" Click="byDuration_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help" x:Name="Help" Click="Help_Click"/>
             </Menu>
-            <StackPanel>
-  
-            </StackPanel>
+
+            <WrapPanel>
+                <StackPanel Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="25*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Title" Grid.Column="0" Grid.Row="0" Padding="1"  Margin="5"/>
+                        <TextBox x:Name="tbTitle" Grid.Column="0" Grid.Row="1" Padding="1"  Margin="5" IsEnabled="False"/>
+
+                        <Label Content="Duration (mins)" Grid.Column="0" Grid.Row="2" Padding="1"  Margin="5"/>
+                        <TextBox x:Name="tbDuration" Grid.Column="0" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
+
+                        <Label Content="Year" Grid.Column="1" Grid.Row="2" Padding="1"  Margin="5"/>
+                        <TextBox x:Name="tbYear" Grid.Column="1" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
+
+                        <Label Content="Budget (millions $)" Grid.Column="0" Grid.Row="4"/>
+                        <TextBox x:Name="tbBudget" Grid.Column="0" Grid.Row="5" Padding="1"  Margin="5" IsEnabled="False"/>
+
+                        <Label Content="Rating" Grid.Column="1" Grid.Row="4"/>
+                        <ComboBox Padding="1" Margin="5" Grid.Column="1" Grid.Row="5" IsEnabled="False">
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="cbRate1">
+                                        <Run Text="1"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="cbRate2">
+                                        <Run Text="2"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="cbRate3">
+                                        <Run Text="3"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="cbRate4">
+                                        <Run Text="4"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="cbRate5">
+                                        <Run Text="5"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                        </ComboBox>
+
+                        <Label Content="Director" Grid.Column="0" Grid.Row="6"/>
+                        <TextBox x:Name="tbDirector" Grid.Column="0" Grid.Row="7" Padding="1"  Margin="5" IsEnabled="False"/>
+
+                        <GroupBox Grid.Column="0" Grid.Row="9" Header="Genre" IsEnabled="False">
+                            <WrapPanel >
+                                <CheckBox Name="cbComedy" Content="Comedy" />
+                                <CheckBox Name="cbRomance"  Content="Romance"/>
+                                <CheckBox Name="cbAction" Content="Action"/>
+                                <CheckBox Name="cbThriller" Content="Thriller"/>
+                                <CheckBox Name="cbFamily" Content="Family"/>
+                                <CheckBox Name="cbHorror" Content="Horror"/>
+                                <CheckBox Name="cbWestern" Content="Western"/>
+                                <CheckBox Name="cbSciFi" Content="SciFi"/>
+                                <CheckBox Name="cbWar" Content="War"/>
+                            </WrapPanel>
+                        </GroupBox>
+
+                        <Label Content="Poster URL" Grid.Column="0" Grid.Row="10" Visibility="Collapsed"/>
+                        <TextBox x:Name="tbPosterURL" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed"/>
+
+                        <Label Content="Cast" Grid.Column="0" Grid.Row="10"/>
+                        <TextBox x:Name="tbCast" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <Button x:Name="bAdd" Content="First"  Grid.Column="1" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="bFirst_Click"/>
+                        <Button x:Name="bDelete" Content="Previous"  Grid.Column="2" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="bPrevious_Click"/>
+
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="bFirst" Content="First" Grid.Column="0" Padding="1"  Margin="5" IsEnabled="False" Click="bFirst_Click"/>
+                        <Button x:Name="bPrevious" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" IsEnabled="False" Click="bPrevious_Click"/>
+                        <Button x:Name="bNext" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="bNext_Click"/>
+                        <Button x:Name="bLast" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="bLast_Click"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Poster" Padding="1" Margin="5"/>
+                    <Image x:Name="Image" Margin="5" Height ="300" Width ="300"/>
+                </StackPanel>
+            </WrapPanel>
         </DockPanel>
     </Border>
 </Window>

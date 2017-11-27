@@ -21,13 +21,96 @@ namespace MovieDatabase
     /// </summary>
     public partial class MovieView : Window
     {
-     
         public MovieView()
         {
             InitializeComponent();
         }
 
-        // Create what ever methods you deem necessary to provide a functioning UI
-        
+        //Dockpanel menu items start
+        private void New_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void View_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void eEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void byTitle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void byYear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void byDuration_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        //Dockpanel menu items end
+
+        private void bFirst_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bPrevious_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bNext_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bLast_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
