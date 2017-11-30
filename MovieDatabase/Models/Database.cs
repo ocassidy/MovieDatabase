@@ -88,9 +88,10 @@ namespace MovieDatabase.Models
         // return true if index update was possible, false otherwise
         public bool First()
         {
-            _index = 0;
-            if (_index == 0)
+            
+            if (_index != -1)
             {
+                _index = 0;
                 return true;
             }
             else
@@ -104,8 +105,9 @@ namespace MovieDatabase.Models
         public bool Last()
         {
             _index = db.Count - 1;
-            if (_index == db.Count - 1)
+            if (_index != -1)
             {
+
                 return true;
             }
             else
@@ -118,9 +120,10 @@ namespace MovieDatabase.Models
         // true if index update was possible, false otherwise<
         public bool Next()
         {
-            _index++;
-            if (_index < db.Count)
+            
+            if (_index < db.Count - 1)
             {
+                _index++;
                 return true;
             }
             else
@@ -133,9 +136,10 @@ namespace MovieDatabase.Models
         // true if index update was possible, false otherwise
         public bool Prev()
         {
-            _index--;
-            if (_index > -1)
+            
+            if (_index > 0)
             {
+                _index--;
                 return true;
             }
             else
@@ -147,13 +151,15 @@ namespace MovieDatabase.Models
         // Load movies from a json file and set index to first record
         public void Load(string file)
         {
-
+            string loadlist = File.ReadAllText(file);
+            db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
         }
 
         // Save movies to a Json file
         public void Save(string file)
         {
-
+            var savelist = JsonConvert.SerializeObject(db);
+            File.WriteAllText(file, savelist);
         }
 
         // Following methods update the List of movies (db) to the specified order
@@ -170,10 +176,10 @@ namespace MovieDatabase.Models
             db = (from e in db orderby e.GetTitle select e).ToList();
         }
 
-        // order the database by budget of movie (ascending)
-        public void OrderByBudget()
+        // order the database by duration of movie (ascending)
+        public void OrderByDuration()
         {
-            db = (from e in db orderby e.GetBudget select e).ToList();
+            db = (from e in db orderby e.GetDuration select e).ToList();
         }
 
     }
