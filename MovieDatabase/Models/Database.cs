@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace MovieDatabase.Models
 {
     public class Database 
     {
+        
         private List<Movie> db; // list of movies in the database
         private int _index; // position of current movie in the database 
 
         // initialise the database properties
         public Database()
         {
+            db = new List<Movie>();
             _index = 0;
-            db.Clear();
+            //Clear();
         }
 
         // A property to Return number of movies in the database
@@ -181,6 +184,5 @@ namespace MovieDatabase.Models
         {
             db = (from e in db orderby e.GetDuration select e).ToList();
         }
-
     }
 }
