@@ -175,11 +175,22 @@ namespace MovieDatabase
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            var dialog = new SaveFileDialog()
+            {
+                Filter = "json files|*.json",
+                Title = "Enter name of order file to save"
+            };
+            // if the user enters a filename and clicks save
+            if (dialog.ShowDialog() == true)
+            {
+                var file = dialog.FileName;
+                db.Save(file);
+            }
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            
 
         }
 
