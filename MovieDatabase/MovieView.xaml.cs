@@ -93,6 +93,11 @@ namespace MovieDatabase
             {
                 cbFamily.IsChecked = true;
             }
+
+            foreach (string actors in db.Get().Actors)
+            {
+                lbCast.Items.Add(actors);
+            }
         }
 
         private void UpdateModelFromUI()
@@ -156,10 +161,10 @@ namespace MovieDatabase
                 db.Get().Genre.Add(Genres.Family);
             }
 
-            foreach(var cast in tbCast.Text)
-            {
-                db.Get().Actors.Add(tbCast.Text);
-            }
+            //foreach (string actors in )
+            //{
+            //    db.Get().Actors.Add(lbCast.Text);
+            //}
         }
 
         //Dockpanel menu items start

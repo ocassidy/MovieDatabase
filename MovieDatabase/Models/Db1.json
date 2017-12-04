@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Actor": [ "John Travolta", "Samuel L. Jackson", "Bruce Willis" ],
+    "Actors": [ "John Travolta", "Samuel L. Jackson", "Bruce Willis" ],
     "Budget": 8000000.00,
     "Director": "Quentin Tarantino",
     "Duration": "154",
@@ -11,7 +11,7 @@
     "Year": 1994
   },
   {
-    "Actor": [ "Chris Hemsworth", "Tom Hiddleston", "Cate Blanchett", "Idris Elba" ],
+    "Actors": [ "Chris Hemsworth", "Tom Hiddleston", "Cate Blanchett", "Idris Elba" ],
     "Budget": 180000000.00,
     "Director": "Taika Waititi",
     "Duration": "130",

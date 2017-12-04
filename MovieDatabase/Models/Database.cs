@@ -15,8 +15,7 @@ namespace MovieDatabase.Models
         public Database()
         {
             db = new List<Movie>();
-            _index = 0;
-            //Clear();
+            Index();
         }
 
         // A property to Return number of movies in the database
@@ -38,6 +37,7 @@ namespace MovieDatabase.Models
             {
                 _index = (0 - (db.Count - 1));
             }
+            First();
             return _index;
         }
 
@@ -91,14 +91,14 @@ namespace MovieDatabase.Models
         // return true if index update was possible, false otherwise
         public bool First()
         {
-            
-            if (_index != -1)
+            if (db.Count > 0)
             {
                 _index = 0;
                 return true;
             }
             else
             {
+                _index = -1;
                 return false;
             }
         }
@@ -107,14 +107,12 @@ namespace MovieDatabase.Models
         // true if index update was possible, false otherwise</returns>
         public bool Last()
         {
-            _index = db.Count - 1;
-            if (_index != -1)
-            {
-
+            if (db.Count > 0) { 
+                _index = db.Count - 1;
                 return true;
-            }
-            else
+            } else
             {
+                _index = -1;
                 return false;
             }
         }
@@ -156,6 +154,7 @@ namespace MovieDatabase.Models
         {
             string loadlist = File.ReadAllText(file);
             db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
+            First();
         }
 
         // Save movies to a Json file
