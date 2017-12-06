@@ -30,35 +30,6 @@ namespace MovieDatabase
             db = new Database();
         }
 
-
-        //Metro Style taken from https://3water.wordpress.com/2013/02/16/metro-style-window-in-wpf/#
-        private void Titlebar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Maximise_Resore_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == System.Windows.WindowState.Normal)
-            {
-                this.WindowState = System.Windows.WindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = System.Windows.WindowState.Normal;
-            }
-        }
-
-        private void Minimise_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = System.Windows.WindowState.Minimized;
-        }
-
         private void UpdateUIFromModel()
         {
             //Updates the UI from the model
