@@ -1,12 +1,17 @@
-﻿<Window x:Class="MovieDatabase.MovieView"
+﻿<Controls:MetroWindow x:Class="MovieDatabase.MovieView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:MovieDatabase"
-        mc:Ignorable="d"
-       Title="Movie Database" Height="425"  Width="1050" SizeToContent="WidthAndHeight">
-
+        mc:Ignorable="d"  
+        GlowBrush="{DynamicResource AccentColorBrush}"              
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+                      
+        Title="Movie Database" Height="500"  Width="1125" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    
     <Border Margin="5">
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -59,16 +64,16 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Content="Title" Grid.Column="0" Grid.Row="0" Padding="1"  Margin="5"/>
-                        <TextBox x:Name="tbTitle" Grid.Column="0" Grid.Row="1" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <TextBox x:Name="tbTitle" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="1" Padding="1"  Margin="5" IsEnabled="False" />
 
                         <Label Content="Duration (mins)" Grid.Column="0" Grid.Row="2" Padding="1"  Margin="5"/>
-                        <TextBox x:Name="tbDuration" Grid.Column="0" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <TextBox x:Name="tbDuration" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
 
                         <Label Content="Year" Grid.Column="1" Grid.Row="2" Padding="1"  Margin="5"/>
-                        <TextBox x:Name="tbYear" Grid.Column="1" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <TextBox x:Name="tbYear" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="1" Grid.Row="3" Padding="1"  Margin="5" IsEnabled="False"/>
 
                         <Label Content="Budget (millions $)" Grid.Column="0" Grid.Row="4"/>
-                        <TextBox x:Name="tbBudget" Grid.Column="0" Grid.Row="5" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <TextBox x:Name="tbBudget" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="5" Padding="1"  Margin="5" IsEnabled="False"/>
 
                         <Label Content="Rating" Grid.Column="1" Grid.Row="4"/>
                         <WrapPanel Margin="5" Grid.Column="1" Grid.Row="5">
@@ -80,30 +85,29 @@
                         </WrapPanel>
 
                         <Label Content="Director" Grid.Column="0" Grid.Row="6"/>
-                        <TextBox x:Name="tbDirector" Grid.Column="0" Grid.Row="7" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <TextBox x:Name="tbDirector" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="7" Padding="1"  Margin="5" IsEnabled="False"/>
 
-                        <GroupBox Grid.Column="0" Grid.Row="9" Header="Genre" IsEnabled="False">
+                        <GroupBox Grid.Column="0" Grid.Row="9" Header="Genre" IsEnabled="False" >
                             <WrapPanel >
-                                <CheckBox Name="cbComedy" Content="Comedy" />
-                                <CheckBox Name="cbRomance"  Content="Romance"/>
-                                <CheckBox Name="cbAction" Content="Action"/>
-                                <CheckBox Name="cbThriller" Content="Thriller"/>
-                                <CheckBox Name="cbFamily" Content="Family"/>
-                                <CheckBox Name="cbHorror" Content="Horror"/>
-                                <CheckBox Name="cbWestern" Content="Western"/>
-                                <CheckBox Name="cbSciFi" Content="SciFi"/>
-                                <CheckBox Name="cbWar" Content="War"/>
+                                <CheckBox Name="cbComedy" Content="Comedy" Margin="5"/>
+                                <CheckBox Name="cbRomance"  Content="Romance" Margin="5"/>
+                                <CheckBox Name="cbAction" Content="Action" Margin="5"/>
+                                <CheckBox Name="cbThriller" Content="Thriller" Margin="5"/>
+                                <CheckBox Name="cbFamily" Content="Family" Margin="5"/>
+                                <CheckBox Name="cbHorror" Content="Horror" Margin="5"/>
+                                <CheckBox Name="cbWestern" Content="Western" Margin="5"/>
+                                <CheckBox Name="cbSciFi" Content="SciFi" Margin="5"/>
+                                <CheckBox Name="cbWar" Content="War" Margin="5"/>
                             </WrapPanel>
                         </GroupBox>
 
                         <Label Content="Poster URL" Grid.Column="0" Grid.Row="10" Visibility="Collapsed"/>
-                        <TextBox x:Name="tbPosterURL" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed"/>
+                        <TextBox x:Name="tbPosterURL" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed"/>
 
-                        <Label Content="Cast" Grid.Column="0" Grid.Row="10"/>
-                        <ListBox x:Name="lbCast" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <Label Content="Cast" Grid.Column="0" Grid.Row="10" />
+                        <ListBox x:Name="lbCast" Grid.Column="0" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" />
                         <Button x:Name="bAdd" Content="First"  Grid.Column="1" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="First_Click"/>
                         <Button x:Name="bDelete" Content="Previous"  Grid.Column="2" Grid.Row="11" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="Previous_Click"/>
-
                     </Grid>
 
                     <Grid>
@@ -118,6 +122,9 @@
                         <Button x:Name="bPrevious" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click"/>
                         <Button x:Name="bNext" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click"/>
                         <Button x:Name="bLast" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click"/>
+
+                        <Button x:Name="bCancel" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bSave" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False" Visibility="Collapsed"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
@@ -127,4 +134,4 @@
             </WrapPanel>
         </DockPanel>
     </Border>
-</Window>
+</Controls:MetroWindow>

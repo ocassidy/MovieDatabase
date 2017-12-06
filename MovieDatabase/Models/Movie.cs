@@ -7,6 +7,7 @@ namespace MovieDatabase.Models
 
     public class Movie
     {
+        //Movie class member variables 
         public string Title { get; set; }
         public int Year { get; set; }
         public string Director { get; set; }

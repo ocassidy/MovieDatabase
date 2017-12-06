@@ -13,13 +13,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace MovieDatabase
 {
     /// <summary>
     /// Interaction logic for MovieView.xaml
     /// </summary>
-    public partial class MovieView : Window
+    public partial class MovieView : MetroWindow
     {
         private Database db;
 
@@ -29,8 +30,38 @@ namespace MovieDatabase
             db = new Database();
         }
 
+
+        //Metro Style taken from https://3water.wordpress.com/2013/02/16/metro-style-window-in-wpf/#
+        private void Titlebar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Maximise_Resore_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void Minimise_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
         private void UpdateUIFromModel()
         {
+            //Updates the UI from the model
             tbTitle.Text = db.Get().Title;
             tbYear.Text = db.Get().Year.ToString();
             tbDirector.Text = db.Get().Director;
@@ -55,6 +86,10 @@ namespace MovieDatabase
             else if (db.Get().Rating == 4)
             {
                 rbRate4.IsChecked = true;
+            }
+            else if (db.Get().Rating == 5)
+            {
+                rbRate5.IsChecked = true;
             }
             else if (db.Get().Rating == 5)
             {
@@ -102,6 +137,7 @@ namespace MovieDatabase
 
         private void UpdateModelFromUI()
         {
+            //Updates the model from the UI 
             db.Get().Title = tbTitle.Text;
             db.Get().Year = Convert.ToInt32(tbYear);
             db.Get().Director = tbDirector.Text;
@@ -160,11 +196,10 @@ namespace MovieDatabase
             {
                 db.Get().Genre.Add(Genres.Family);
             }
-
-            //foreach (string actors in )
-            //{
-            //    db.Get().Actors.Add(lbCast.Text);
-            //}
+            foreach (string actors in lbCast.Items)
+            {
+                db.Get().Actors.ToString();
+            }
         }
 
         //Dockpanel menu items start
@@ -178,13 +213,30 @@ namespace MovieDatabase
             var dialog = new SaveFileDialog()
             {
                 Filter = "json files|*.json",
-                Title = "Enter name of order file to save"
+                Title = "Save"
             };
             // if the user enters a filename and clicks save
             if (dialog.ShowDialog() == true)
             {
                 var file = dialog.FileName;
                 db.Save(file);
+            }
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "json files|*.json",
+                Title = "Load"
+            };
+
+            // if the user enters a filename and clicks save
+            if (dialog.ShowDialog() == true)
+            {
+                var file = dialog.FileName;
+                db.Load(file);
+                UpdateUIFromModel();
             }
         }
 
@@ -207,23 +259,6 @@ namespace MovieDatabase
         private void Help_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog()
-            {
-                Filter = "json files|*.json",
-                Title = "Load"
-            };
-
-            // if the user enters a filename and clicks save
-            if (dialog.ShowDialog() == true)
-            {
-                var file = dialog.FileName;
-                db.Load(file);
-                UpdateUIFromModel();
-            }
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
@@ -252,6 +287,8 @@ namespace MovieDatabase
         }
         //Dockpanel menu items end
 
+
+        //Navigation buttons start 
         private void First_Click(object sender, RoutedEventArgs e)
         {
 
@@ -271,5 +308,6 @@ namespace MovieDatabase
         {
 
         }
+        //Navigation buttons end
     }
 }
