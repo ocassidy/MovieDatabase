@@ -181,34 +181,14 @@ namespace MovieDatabase
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new SaveFileDialog()
-            {
-                Filter = "json files|*.json",
-                Title = "Save"
-            };
-            // if the user enters a filename and clicks save
-            if (dialog.ShowDialog() == true)
-            {
-                var file = dialog.FileName;
-                db.Save(file);
-            }
+            db.Save("");
+
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog()
-            {
-                Filter = "json files|*.json",
-                Title = "Load"
-            };
-
-            // if the user enters a filename and clicks save
-            if (dialog.ShowDialog() == true)
-            {
-                var file = dialog.FileName;
-                db.Load(file);
-                UpdateUIFromModel();
-            }
+            db.Load("");
+            UpdateUIFromModel();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

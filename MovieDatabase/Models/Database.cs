@@ -2,6 +2,8 @@
 using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
+using Microsoft.Win32;
+using System.Windows;
 
 namespace MovieDatabase.Models
 {
@@ -26,7 +28,7 @@ namespace MovieDatabase.Models
 
         // A property to return  current _index position which should be either
         // -1 if database is empty
-        // 0 - db.Count-1 if database is not empty
+        // 0 - db.Count if database is not empty
         public int Index()
         {
             if (Count() == 0)
@@ -35,16 +37,20 @@ namespace MovieDatabase.Models
             }
             else
             {
-                _index = (0 - (db.Count - 1));
+                //***SOMETHING IS BROKEN FROM HERE ON ?**
+                _index ++;
+                First();
             }
-            First();
             return _index;
         }
 
         // Add a movie to current position in database
         public void Add(Movie m)
         {
-            db.Insert(_index, m);
+            if (Index().Equals(0))
+            {              
+                db.Insert(_index, m);
+            }       
         }
 
         // Return current movie or null if database empty
@@ -56,7 +62,8 @@ namespace MovieDatabase.Models
             }
             else
             {
-                return db[_index];
+                
+                return db[_index+1];
             }
         }
 
@@ -120,8 +127,7 @@ namespace MovieDatabase.Models
         // Move index position to next movie
         // true if index update was possible, false otherwise<
         public bool Next()
-        {
-            
+        { 
             if (_index < db.Count - 1)
             {
                 _index++;
@@ -152,16 +158,45 @@ namespace MovieDatabase.Models
         // Load movies from a json file and set index to first record
         public void Load(string file)
         {
-            string loadlist = File.ReadAllText(file);
-            db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
-            First();
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "json files|*.json",
+                Title = "Load"
+            };
+
+            // if the user enters a filename and clicks save
+            if (dialog.ShowDialog() == true)
+            {
+                file = dialog.FileName;
+                string loadlist = File.ReadAllText(file);
+                db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
+                First();
+            }            
         }
 
         // Save movies to a Json file
         public void Save(string file)
         {
-            var savelist = JsonConvert.SerializeObject(db);
-            File.WriteAllText(file, savelist);
+            //if (Index().Equals(-1))
+            //{
+            //    MessageBox.Show("Cannot Save Blank File");
+            //}
+
+            if (Index().Equals(0))
+            {
+                var dialog = new SaveFileDialog()
+                {
+                    Filter = "json files|*.json",
+                    Title = "Save"
+                };
+                // if the user enters a filename and clicks save
+                if (dialog.ShowDialog() == true)
+                {
+                    file = dialog.FileName;
+                    var savelist = JsonConvert.SerializeObject(db);
+                    File.WriteAllText(file, savelist);
+                }
+            }
         }
 
         // Following methods update the List of movies (db) to the specified order
@@ -169,19 +204,19 @@ namespace MovieDatabase.Models
         // order the database by year of movie
         public void OrderByYear()
         {
-            db = (from e in db orderby e.GetYear select e).ToList();
+            db = (from e in db orderby e.Year select e).ToList();
         }
 
         // order the database by title of movie (ascending)
         public void OrderByTitle()
         {
-            db = (from e in db orderby e.GetTitle select e).ToList();
+            db = (from e in db orderby e.Title select e).ToList();
         }
 
         // order the database by duration of movie (ascending)
         public void OrderByDuration()
         {
-            db = (from e in db orderby e.GetDuration select e).ToList();
+            db = (from e in db orderby e.Duration select e).ToList();
         }
     }
 }

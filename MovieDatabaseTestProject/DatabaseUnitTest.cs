@@ -30,6 +30,7 @@ namespace MovieDatabaseTestProject
         public void TestStoreAndLoad()
         {
             int numMoviesBeforeSave = db.Count();
+
             db.Save("movies.json");
             db.Clear();
             db.Load("movies.json");
@@ -49,20 +50,19 @@ namespace MovieDatabaseTestProject
             Assert.AreEqual(m4.Title, db.Get().Title);
         }
 
-
         [TestMethod]
         public void TestClearThenAdd()
         {
-            db.clear();
+            db.Clear();
             db.Add(m1);
-            Assert.AreEqual(1, db.Count);
+            Assert.AreEqual(1, db.Count());
             Assert.AreEqual(m1.Title, db.Get().Title);
         }
 
         [TestMethod]
         public void TestClear()
         {
-            db.clear();
+            db.Clear();
             Assert.AreEqual(null, db.Get());
         }
 
