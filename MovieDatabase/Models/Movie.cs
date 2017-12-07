@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MovieDatabase.Models
 {
-    public enum Genres {Comedy, Action, Thriller, Horror, Romance, SciFi, Western, Family };
+    public enum Genres {Comedy, Action, Thriller, Horror, Romance, SciFi, Western, Family, War };
 
     public class Movie
     {

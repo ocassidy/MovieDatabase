@@ -20,5 +20,16 @@
     "Rating": 5,
     "Title": "Thor: Ragnarok",
     "Year": 2017
-  }
+  },
+  {
+  "Actors": [ "Jerry Seinfeld", "Renée Zellweger", "Matthew Broderick", "Patrick Warburton" ],
+    "Budget": 150000000.00,
+    "Director": "Simon J. Smith",
+    "Duration": "91",
+    "Genre": [ 0, 1, 2, 4, 7 ],
+    "Poster": "https://image.tmdb.org/t/p/w640/QhbOzpYfBOwrRiuTu9otPk919R.jpg",
+    "Rating": 4,
+    "Title": "Bee Movie",
+    "Year": 2007
+	}
 ]

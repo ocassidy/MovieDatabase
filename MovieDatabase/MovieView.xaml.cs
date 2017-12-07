@@ -62,10 +62,6 @@ namespace MovieDatabase
             {
                 rbRate5.IsChecked = true;
             }
-            else if (db.Get().Rating == 5)
-            {
-                rbRate5.IsChecked = true;
-            }
 
             if (db.Get().Genre.Contains(Genres.Comedy))
             {
@@ -98,6 +94,10 @@ namespace MovieDatabase
             if (db.Get().Genre.Contains(Genres.Family))
             {
                 cbFamily.IsChecked = true;
+            }
+            if (db.Get().Genre.Contains(Genres.War))
+            {
+                cbWar.IsChecked = true;
             }
 
             foreach (string actors in db.Get().Actors)
@@ -167,6 +167,10 @@ namespace MovieDatabase
             {
                 db.Get().Genre.Add(Genres.Family);
             }
+            if (cbWar.IsChecked.Value)
+            {
+                db.Get().Genre.Add(Genres.War);
+            }
 
             //
             foreach (string actors in lbCast.Items)
@@ -221,12 +225,42 @@ namespace MovieDatabase
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            db.Last();
+            db.Clear();
 
+            tbTitle.IsEnabled = true;
+            tbDuration.IsEnabled = true;
+            tbBudget.IsEnabled = true;
+            tbDirector.IsEnabled = true;
+            gbGenre.IsEnabled = true;
+            lbCast.IsEnabled = true;
+            lbCast.Visibility = Visibility.Visible;
+            tbYear.IsEnabled = true;
+            gbRating.IsEnabled = true;
+
+            bFirst.Visibility = Visibility.Collapsed;
+            bPrevious.Visibility = Visibility.Collapsed;
+            bLast.Visibility = Visibility.Collapsed;
+            bNext.Visibility = Visibility.Collapsed;
+
+            lPoster.Visibility = Visibility.Collapsed;
+            iPoster.Visibility = Visibility.Collapsed;
+
+            lPosterURL.Visibility = Visibility.Visible;
+            lPosterURL.IsEnabled = true;
+            tbPosterURL.Visibility = Visibility.Visible;
+            tbPosterURL.IsEnabled = true;
+
+            bCancel.Visibility = Visibility.Visible;
+            bCancel.IsEnabled = true;
+            bSave.Visibility = Visibility.Visible;
+            bSave.IsEnabled = true;
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            db.Delete();
+            UpdateUIFromModel();
         }
 
         private void OrderbyTitle_Click(object sender, RoutedEventArgs e)
@@ -250,26 +284,52 @@ namespace MovieDatabase
         private void First_Click(object sender, RoutedEventArgs e)
         {
             db.First();
-            lbCast.Items.Clear();
+            Clear();
             UpdateUIFromModel();
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
-
+            db.Prev();
+            Clear();
+            UpdateUIFromModel();
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
             db.Next();
-            lbCast.Items.Clear();
+            Clear();
             UpdateUIFromModel();
         }
 
         private void Last_Click(object sender, RoutedEventArgs e)
         {
-
+            db.Last();
+            Clear();
+            UpdateUIFromModel();
         }
         //Navigation buttons end
+
+        //Navigational Clears
+        private void Clear()
+        {
+            lbCast.Items.Clear();
+
+            rbRate1.IsChecked = false;
+            rbRate2.IsChecked = false;
+            rbRate3.IsChecked = false;
+            rbRate4.IsChecked = false;
+            rbRate5.IsChecked = false;   
+
+            cbComedy.IsChecked = false;
+            cbAction.IsChecked = false;
+            cbThriller.IsChecked = false;
+            cbHorror.IsChecked = false;
+            cbRomance.IsChecked = false;
+            cbFamily.IsChecked = false;
+            cbSciFi.IsChecked = false;
+            cbWestern.IsChecked = false;
+            cbWar.IsChecked = false;
+        }
     }
 }
