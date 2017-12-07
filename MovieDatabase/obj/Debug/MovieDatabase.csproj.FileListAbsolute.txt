@@ -40,3 +40,12 @@ C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDataba
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.csproj.CoreCompileInputs.cache
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.exe
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.pdb
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MahApps.Metro.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MahApps.Metro.pdb
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\bin\Debug\MahApps.Metro.xml
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase_Content.g.cs
+C:\Users\csf16cao\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\App.baml
