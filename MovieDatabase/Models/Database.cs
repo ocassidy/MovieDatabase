@@ -129,13 +129,14 @@ namespace MovieDatabase.Models
         // true if index update was possible, false otherwise<
         public bool Next()
         { 
-            if (_index < db.Count - 1)
+            if (_index < db.Count() - 1)
             {
                 _index++;
                 return true;
             }
             else
             {
+                MessageBox.Show("No movies exist to move, cannot goto next!");
                 return false;
             }
         }

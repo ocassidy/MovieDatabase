@@ -101,7 +101,7 @@ namespace MovieDatabase
             }
 
             foreach (string actors in db.Get().Actors)
-            {
+            {      
                 lbCast.Items.Add(actors);
             }
         }
@@ -115,10 +115,10 @@ namespace MovieDatabase
             db.Get().Duration = Convert.ToInt32(tbDuration);
             db.Get().Budget = Convert.ToInt32(tbBudget);
             db.Get().Rating = rbRate1.IsChecked.Value ? db.Get().Rating = 1 :
-                       rbRate2.IsChecked.Value ? db.Get().Rating = 2 :
-                       rbRate3.IsChecked.Value ? db.Get().Rating = 3 :
-                       rbRate4.IsChecked.Value ? db.Get().Rating = 4 :
-                       rbRate5.IsChecked.Value ? db.Get().Rating = 5 : db.Get().Rating;
+                              rbRate2.IsChecked.Value ? db.Get().Rating = 2 :
+                              rbRate3.IsChecked.Value ? db.Get().Rating = 3 :
+                              rbRate4.IsChecked.Value ? db.Get().Rating = 4 :
+                              rbRate5.IsChecked.Value ? db.Get().Rating = 5 : db.Get().Rating;
 
             var path = tbPosterURL.Text;
             try
@@ -167,6 +167,8 @@ namespace MovieDatabase
             {
                 db.Get().Genre.Add(Genres.Family);
             }
+
+            //
             foreach (string actors in lbCast.Items)
             {
                 db.Get().Actors.ToString();
@@ -182,18 +184,23 @@ namespace MovieDatabase
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             db.Save("");
-
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             db.Load("");
             UpdateUIFromModel();
+
+            //After load enable buttons
+            bFirst.IsEnabled = true;
+            bLast.IsEnabled = true;
+            bPrevious.IsEnabled = true;
+            bNext.IsEnabled = true;
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
         }
 
@@ -214,7 +221,7 @@ namespace MovieDatabase
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -242,7 +249,9 @@ namespace MovieDatabase
         //Navigation buttons start 
         private void First_Click(object sender, RoutedEventArgs e)
         {
-
+            db.First();
+            lbCast.Items.Clear();
+            UpdateUIFromModel();
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -252,7 +261,9 @@ namespace MovieDatabase
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-
+            db.Next();
+            lbCast.Items.Clear();
+            UpdateUIFromModel();
         }
 
         private void Last_Click(object sender, RoutedEventArgs e)

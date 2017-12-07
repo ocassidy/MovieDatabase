@@ -118,13 +118,13 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="bFirst" Content="First" Grid.Column="0" Padding="1"  Margin="5" Click="First_Click"/>
-                        <Button x:Name="bPrevious" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click"/>
-                        <Button x:Name="bNext" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click"/>
-                        <Button x:Name="bLast" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click"/>
+                        <Button x:Name="bFirst" Style="{DynamicResource SquareButtonStyle}" Content="First" Grid.Column="0" Padding="1"  Margin="5" Click="First_Click" IsEnabled="False"/>
+                        <Button x:Name="bPrevious" Style="{DynamicResource SquareButtonStyle}" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click" IsEnabled="False"/>
+                        <Button x:Name="bNext" Style="{DynamicResource SquareButtonStyle}" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False"/>
+                        <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
 
-                        <Button x:Name="bCancel" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False" Visibility="Collapsed"/>
-                        <Button x:Name="bSave" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False" Visibility="Collapsed"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
