@@ -10,7 +10,7 @@
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
                       
-        Title="Movie Database" Height="550"  Width="1000" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Movie Database" Height="550"  Width="1000" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" MinHeight="400" MinWidth="400">
 
     <Border Margin="5">
         <DockPanel>
@@ -95,15 +95,28 @@
                         </WrapPanel>
                     </GroupBox>
 
-                    <Label x:Name="lPosterURL" Content="Poster URL" Grid.Column="0" Visibility="Collapsed"/>
-                    <TextBox x:Name="tbPosterURL" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Label Content="Cast" Grid.Column="0" />
-                    <ListBox x:Name="lbCast" Grid.Column="0" Padding="1"  Margin="5" IsEnabled="False" />
-                    
-                    <Button x:Name="bAdd" Content="First" Grid.Column="1" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="First_Click"/>
-                    <Button x:Name="bDelete" Content="Previous"  Grid.Column="2" Padding="1"  Margin="5" IsEnabled="False" Visibility="Collapsed" Click="Previous_Click"/>
+                        <Label Content="Cast" Grid.Column="0" Grid.Row="0"/>
+                        <TextBox x:Name="tbCast" Padding="1"  Margin="5" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
+                        <ListBox x:Name="lbCast" Padding="1"  Margin="5" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
+                        
+                        <Button x:Name="bAdd" Style="{DynamicResource SquareButtonStyle}" Content="Add" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="AddCast_Click" Grid.Column="1" Grid.Row="1"/>
+                        <Button x:Name="bDelete" Style="{DynamicResource SquareButtonStyle}" Content="Delete" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="DeleteCast_Click" Grid.Column="2" Grid.Row="1"/>
 
+                    </Grid>
+                    <Label x:Name="lPosterURL" Content="Poster URL" Visibility="Collapsed" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox x:Name="tbPosterURL" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -117,8 +130,8 @@
                         <Button x:Name="bNext" Style="{DynamicResource SquareButtonStyle}" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False"/>
                         <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
 
-                        <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False" Visibility="Collapsed"/>
-                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Cancel_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Save_Click" IsEnabled="False" Visibility="Collapsed"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>

@@ -136,7 +136,7 @@ namespace MovieDatabase.Models
             }
             else
             {
-                MessageBox.Show("No movies exist to move, cannot goto next!");
+                MessageBox.Show("No movies exist to move, cannot goto next!", "Error!");
                 return false;
             }
         }
@@ -144,8 +144,7 @@ namespace MovieDatabase.Models
         // Move index position to previous movie
         // true if index update was possible, false otherwise
         public bool Prev()
-        {
-            
+        {  
             if (_index > 0)
             {
                 _index--;
@@ -173,18 +172,21 @@ namespace MovieDatabase.Models
                 string loadlist = File.ReadAllText(file);
                 db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
                 First();
-            }            
+            }
+            else if (dialog.ShowDialog() == false)
+            {
+                First();
+            }
         }
 
         // Save movies to a Json file
         public void Save(string file)
         {
-            //if (Index().Equals(-1))
-            //{
-            //    MessageBox.Show("Cannot Save Blank File");
-            //}
-
-            if (Index() >= 0)
+            if (Count() <= 0)
+            {
+                MessageBox.Show("Cannot Save Blank File", "Error!");
+            }
+            else if (Count() > 0)
             {
                 var dialog = new SaveFileDialog()
                 {
@@ -202,7 +204,6 @@ namespace MovieDatabase.Models
         }
 
         // Following methods update the List of movies (db) to the specified order
-
         // order the database by year of movie
         public void OrderByYear()
         {

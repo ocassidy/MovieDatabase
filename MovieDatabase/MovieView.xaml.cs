@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
 
 namespace MovieDatabase
@@ -123,7 +124,7 @@ namespace MovieDatabase
             var path = tbPosterURL.Text;
             try
             {
-                // create the url and add as a string to the PosterImage
+                // create the url and add as a string to the iPoster
                 var uri = new Uri(path, UriKind.Absolute);
                 db.Get().Poster = (uri.ToString());
                 // reset the Path
@@ -234,9 +235,14 @@ namespace MovieDatabase
             tbDirector.IsEnabled = true;
             gbGenre.IsEnabled = true;
             lbCast.IsEnabled = true;
-            lbCast.Visibility = Visibility.Visible;
+            tbCast.Visibility = Visibility.Visible;
             tbYear.IsEnabled = true;
             gbRating.IsEnabled = true;
+
+            bAdd.IsEnabled = true;
+            bAdd.Visibility = Visibility.Visible;
+            bDelete.IsEnabled = true;
+            bDelete.Visibility = Visibility.Visible;
 
             bFirst.Visibility = Visibility.Collapsed;
             bPrevious.Visibility = Visibility.Collapsed;
@@ -330,6 +336,36 @@ namespace MovieDatabase
             cbSciFi.IsChecked = false;
             cbWestern.IsChecked = false;
             cbWar.IsChecked = false;
+        }
+
+        private void AddCast_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbCast.Text.Length < 1)
+            {
+                MessageBox.Show("Cannot add empty cast member!", "Error!");
+            }
+            else if (tbCast.Text.Length > 0)
+            {
+                lbCast.Items.Add(tbCast.Text);
+            }   
+        }
+
+        private void DeleteCast_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbCast.Items.Count == 0)
+            {
+                MessageBox.Show("The cast list is empty, cannot delete!", "Error!");
+            }
+            else
+            {
+                lbCast.Items.RemoveAt(0);
+            }
+            
+        }
+        
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

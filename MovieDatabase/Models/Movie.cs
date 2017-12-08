@@ -17,28 +17,5 @@ namespace MovieDatabase.Models
         public string Poster { get; set; }
         public List<Genres> Genre { get; set; } // list of the genres movies can occupy
         public List<string> Actors { get; set; } // list of the actors in the movies
-
-        //public int GetYear
-        //{
-        //    get
-        //    {
-        //        return Year;
-        //    }
-        
-        //}
-        //public string GetTitle
-        //{
-        //    get
-        //    {
-        //        return Title;
-        //    }
-        //}
-        //public double GetDuration
-        //{
-        //    get
-        //    {
-        //        return Duration;
-        //    }
-        //}
     }
 }
