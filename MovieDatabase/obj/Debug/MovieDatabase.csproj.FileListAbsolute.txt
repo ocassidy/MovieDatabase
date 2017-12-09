@@ -49,3 +49,5 @@ C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDataba
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.csproj.CoreCompileInputs.cache
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.exe
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.pdb
+C:\Users\cgf16osm\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.exe
+C:\Users\cgf16osm\Source\Repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.pdb

@@ -31,16 +31,10 @@ namespace MovieDatabase.Models
         // 0 - db.Count if database is not empty
         public int Index()
         {
-            /*if (Count() == 0)
+            if (Count() == 0)
             {
                 _index = -1;
             }
-            else
-            {
-                //***SOMETHING IS BROKEN FROM HERE ON ?**
-                //_index = (0 - db.Count());
-                //First();
-            }*/
             return _index;
         }
 
@@ -63,7 +57,6 @@ namespace MovieDatabase.Models
             }
             else
             {
-                
                 return db[_index];
             }
         }
@@ -81,7 +74,7 @@ namespace MovieDatabase.Models
         // Update the current movie at index if there is a movie and update index
         public void Update(Movie m)
         {
-            if (Count() != 0)
+            if (Get() != null)
             {
                 db[_index] = m;
                 Index();
@@ -116,7 +109,7 @@ namespace MovieDatabase.Models
         public bool Last()
         {
             _index = db.Count - 1;
-            if (_index == db.Count - 1) { 
+            if (db.Count > 0) { 
                 
                 return true;
             } else
