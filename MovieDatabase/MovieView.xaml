@@ -126,7 +126,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="bFirst" Style="{DynamicResource SquareButtonStyle}" Content="First" Grid.Column="0" Padding="1"  Margin="5" Click="First_Click" IsEnabled="False"/>
-                        <Button x:Name="bPrevious" Style="{DynamicResource SquareButtonStyle}" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click" IsEnabled="False"/>
+                        <Button x:Name="bPrev" Style="{DynamicResource SquareButtonStyle}" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click" IsEnabled="False"/>
                         <Button x:Name="bNext" Style="{DynamicResource SquareButtonStyle}" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False"/>
                         <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
 

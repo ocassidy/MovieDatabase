@@ -9,7 +9,6 @@ namespace MovieDatabase.Models
 {
     public class Database
     {
-
         private List<Movie> db; // list of movies in the database
         private int _index; // position of current movie in the database 
 
@@ -17,54 +16,58 @@ namespace MovieDatabase.Models
         public Database()
         {
             db = new List<Movie>();
-            Index();
+            _index = -1;
         }
 
         // A function to Return number of movies in the database
-        public int Count()
+        public int Count
         {
-            return db.Count;
+            get
+            {
+                return db.Count;
+            }
         }
 
         //A function to return  current _index position which should be either
         //-1 if database is empty
         //0 - db.Count if database is not empty
-        public int Index()
+        public int Index
         {
-            if (Count() == 0)
+            get
             {
-                _index = -1;
-                return 0;
+                return _index;
             }
-            else
+            set
             {
-                _index = 0;
-                return 0 ;
+                if (Count == 0)
+                {
+                    _index = -1;
+                }
+                else
+                {
+                    _index = 0;
+                }
             }
         }
 
         //Add a movie to current position in database
         public void Add(Movie m)
         {
-            if (Index() >= 0)
+            if (Index < Count - 1)
             {
-                if (Index() < Count() - 1)
-                {
-                    db.Insert(Index()++, m);
-                }
-                else
-                {
-                    db.Add(m);
-                    Last();
-                }
-                
+                db.Insert(Index++, m);
+            }
+            else
+            {
+                db.Add(m);
+                Last();
             }
         }
 
         //Return current movie or null if database empty
         public Movie Get()
         {
-            if (Count() == 0)
+            if (Count == 0)
             {
                 return null;
             }
@@ -77,10 +80,14 @@ namespace MovieDatabase.Models
         // Delete current movie at index if there is a movie and update index 
         public void Delete()
         {
-            if (Count() != 0)
+            if (Count != 0)
             {
                 db.RemoveAt(_index);
-                Index();
+                _index--;
+            }
+            if (Index == -1 && Count > 0)
+            {
+                _index = 0;
             }
         }
 
@@ -90,7 +97,6 @@ namespace MovieDatabase.Models
             if (Get() != null)
             {
                 db[_index] = m;
-                Index();
             }
         }
 
@@ -98,14 +104,14 @@ namespace MovieDatabase.Models
         public void Clear()
         {
             db.Clear();
-            Index();
+            _index = -1;
         }
 
         //Move index position to first movie (0)
         //return true if index update was possible, false otherwise
         public bool First()
         {
-            if (db.Count() > 0)
+            if (Count > 0)
             {
                 _index = 0;
                 return true;
@@ -120,11 +126,10 @@ namespace MovieDatabase.Models
         //Move index position to last movie
         //true if index update was possible, false otherwise</returns>
         public bool Last()
-        {
-            _index = Count() - 1;
-            if (db.Count() > 0)
+        {         
+            if (Count > 0)
             {
-
+                _index = Count - 1;
                 return true;
             }
             else
@@ -137,7 +142,7 @@ namespace MovieDatabase.Models
         //true if index update was possible, false otherwise<
         public bool Next()
         {
-            if (_index < Count() - 1 && Count() > 0)
+            if (Index < Count - 1 && Count > 0)
             {
                 _index++;
                 return true;
@@ -153,7 +158,7 @@ namespace MovieDatabase.Models
         //true if index update was possible, false otherwise
         public bool Prev()
         {
-            if (_index > 0)
+            if (Index > 0)
             {
                 _index--;
                 return true;
@@ -167,37 +172,16 @@ namespace MovieDatabase.Models
         //Load movies from a json file and set index to first record
         public void Load(string file)
         {
-            var dialog = new OpenFileDialog()
-            {
-                Filter = "json files|*.json",
-                Title = "Load"
-            };
-
-            // if the user enters a filename and clicks save
-            if (dialog.ShowDialog() == true)
-            {
-                file = dialog.FileName;
-                string loadlist = File.ReadAllText(file);
-                db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
-                First();
-            }      
+            string loadlist = File.ReadAllText(file);
+            db = JsonConvert.DeserializeObject<List<Movie>>(loadlist);
+            First();
         }
 
         //Save movies to a Json file
         public void Save(string file)
         {
-            var dialog = new SaveFileDialog()
-            {
-                Filter = "json files|*.json",
-                Title = "Save"
-            };
-            // if the user enters a filename and clicks save
-            if (dialog.ShowDialog() == true)
-            {
-                file = dialog.FileName;
-                var savelist = JsonConvert.SerializeObject(db);
-                File.WriteAllText(file, savelist);
-            }
+            var savelist = JsonConvert.SerializeObject(db);
+            File.WriteAllText(file, savelist);
         }
 
         //Following methods update the List of movies (db) to the specified order
