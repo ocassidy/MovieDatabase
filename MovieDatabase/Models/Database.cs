@@ -48,8 +48,16 @@ namespace MovieDatabase.Models
         {
             if (Index() >= 0)
             {
-                db.Add(m);
-                Last();
+                if (Index() < Count() - 1)
+                {
+                    db.Insert(Index()++, m);
+                }
+                else
+                {
+                    db.Add(m);
+                    Last();
+                }
+                
             }
         }
 
