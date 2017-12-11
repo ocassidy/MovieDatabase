@@ -131,7 +131,7 @@
                         <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
 
                         <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Cancel_Click" IsEnabled="False" Visibility="Collapsed"/>
-                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="Save_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="EditSave_Click" IsEnabled="False" Visibility="Collapsed"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>

@@ -23,12 +23,17 @@ namespace MovieDatabase
     /// </summary>
     public partial class MovieView : MetroWindow
     {
+        enum WindowMode { View, Create, Edit };
+        private WindowMode mode;
         private Database db;
+        private bool EditSaveClicked = false;
+        private bool EditCancelClicked = false;
 
         public MovieView()
         {
             InitializeComponent();
             db = new Database();
+            mode = WindowMode.View;
         }
 
         private void UpdateUIFromModel()
@@ -40,8 +45,19 @@ namespace MovieDatabase
             tbDuration.Text = db.Get().Duration.ToString();
             tbBudget.Text = db.Get().Budget.ToString();
 
-            var uri = new Uri(db.Get().Poster, UriKind.Absolute);
-            iPoster.Source = new BitmapImage(uri);
+            if (Uri.IsWellFormedUriString(db.Get().Poster, UriKind.Absolute))
+            {
+                var uri = new Uri(db.Get().Poster, UriKind.Absolute);
+                iPoster.Source = new BitmapImage(uri);
+            }
+            else
+            {
+                // the path is not a valid URI
+                iPoster.Source = null;
+                MessageBox.Show("Invalid Poster URL", "Error");
+            }
+
+            tbPosterURL.Text = db.Get().Poster;
 
             if (db.Get().Rating == 1)
             {
@@ -102,7 +118,7 @@ namespace MovieDatabase
             }
 
             foreach (string actors in db.Get().Actors)
-            {      
+            {
                 lbCast.Items.Add(actors);
             }
         }
@@ -121,14 +137,12 @@ namespace MovieDatabase
                               rbRate4.IsChecked.Value ? db.Get().Rating = 4 :
                               rbRate5.IsChecked.Value ? db.Get().Rating = 5 : db.Get().Rating;
 
-            var path = tbPosterURL.Text;
             try
             {
                 // create the url and add as a string to the iPoster
-                var uri = new Uri(path, UriKind.Absolute);
+                var uri = new Uri(tbPosterURL.Text, UriKind.Absolute);
                 db.Get().Poster = (uri.ToString());
-                // reset the Path
-                tbPosterURL.Text = "";
+                iPoster.Source = new BitmapImage(uri);
             }
             catch
             {
@@ -183,7 +197,8 @@ namespace MovieDatabase
         //Dockpanel menu items start
         private void New_Click(object sender, RoutedEventArgs e)
         {
-
+            db = new Database();
+            SetToEditMode();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -211,80 +226,66 @@ namespace MovieDatabase
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (db.Count() < 1)
+            {
+                db.Clear();
+                SetToEditMode();
+                mode = WindowMode.Edit;
+            }
+            else
+            {
+                MessageBox.Show("To edit a blank record use create!", "Error");
+            }
         }
 
         private void View_Click(object sender, RoutedEventArgs e)
         {
-
+            SetToViewMode();
+            mode = WindowMode.View;
         }
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show(mode.ToString());
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            db.Last();
-            db.Clear();
-
-            tbTitle.IsEnabled = true;
-            tbDuration.IsEnabled = true;
-            tbBudget.IsEnabled = true;
-            tbDirector.IsEnabled = true;
-            gbGenre.IsEnabled = true;
-            lbCast.IsEnabled = true;
-            tbCast.Visibility = Visibility.Visible;
-            tbYear.IsEnabled = true;
-            gbRating.IsEnabled = true;
-
-            bAdd.IsEnabled = true;
-            bAdd.Visibility = Visibility.Visible;
-            bDelete.IsEnabled = true;
-            bDelete.Visibility = Visibility.Visible;
-
-            bFirst.Visibility = Visibility.Collapsed;
-            bPrevious.Visibility = Visibility.Collapsed;
-            bLast.Visibility = Visibility.Collapsed;
-            bNext.Visibility = Visibility.Collapsed;
-
-            lPoster.Visibility = Visibility.Collapsed;
-            iPoster.Visibility = Visibility.Collapsed;
-
-            lPosterURL.Visibility = Visibility.Visible;
-            lPosterURL.IsEnabled = true;
-            tbPosterURL.Visibility = Visibility.Visible;
-            tbPosterURL.IsEnabled = true;
-
-            bCancel.Visibility = Visibility.Visible;
-            bCancel.IsEnabled = true;
-            bSave.Visibility = Visibility.Visible;
-            bSave.IsEnabled = true;
+            SetToCreateMode();
+            mode = WindowMode.Create;
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             db.Delete();
+            Clear();
             UpdateUIFromModel();
         }
 
         private void OrderbyTitle_Click(object sender, RoutedEventArgs e)
         {
-
+            db.OrderByTitle();
+            Clear();
+            db.First();
+            UpdateUIFromModel();
         }
 
         private void OrderbyYear_Click(object sender, RoutedEventArgs e)
         {
-
+            db.OrderByTitle();
+            Clear();
+            db.First();
+            UpdateUIFromModel();
         }
 
         private void OrderbyDuration_Click(object sender, RoutedEventArgs e)
         {
-
+            db.OrderByDuration();
+            Clear();
+            db.First();
+            UpdateUIFromModel();
         }
         //Dockpanel menu items end
-
 
         //Navigation buttons start 
         private void First_Click(object sender, RoutedEventArgs e)
@@ -325,7 +326,7 @@ namespace MovieDatabase
             rbRate2.IsChecked = false;
             rbRate3.IsChecked = false;
             rbRate4.IsChecked = false;
-            rbRate5.IsChecked = false;   
+            rbRate5.IsChecked = false;
 
             cbComedy.IsChecked = false;
             cbAction.IsChecked = false;
@@ -347,7 +348,7 @@ namespace MovieDatabase
             else if (tbCast.Text.Length > 0)
             {
                 lbCast.Items.Add(tbCast.Text);
-            }   
+            }
         }
 
         private void DeleteCast_Click(object sender, RoutedEventArgs e)
@@ -360,11 +361,171 @@ namespace MovieDatabase
             {
                 lbCast.Items.RemoveAt(0);
             }
-            
         }
-        
+        private void EditSave_Click(object sender, RoutedEventArgs e)
+        {
+            EditSaveClicked = true;
+            SetToViewMode();
+        }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            EditCancelClicked = true;
+            SetToViewMode();
+           
+        }
+        private void SetToEditMode()
+        {
+            db.Clear();
+
+            tbTitle.IsEnabled = true;
+            tbDuration.IsEnabled = true;
+            tbBudget.IsEnabled = true;
+            tbDirector.IsEnabled = true;
+            gbGenre.IsEnabled = true;
+            lbCast.IsEnabled = true;
+            tbCast.Visibility = Visibility.Visible;
+            tbYear.IsEnabled = true;
+            gbRating.IsEnabled = true;
+
+            bAdd.IsEnabled = true;
+            bAdd.Visibility = Visibility.Visible;
+            bDelete.IsEnabled = true;
+            bDelete.Visibility = Visibility.Visible;
+
+            bFirst.Visibility = Visibility.Collapsed;
+            bPrevious.Visibility = Visibility.Collapsed;
+            bLast.Visibility = Visibility.Collapsed;
+            bNext.Visibility = Visibility.Collapsed;
+
+            lPoster.Visibility = Visibility.Collapsed;
+            iPoster.Visibility = Visibility.Collapsed;
+            lPosterURL.Visibility = Visibility.Visible;
+            lPosterURL.IsEnabled = true;
+            tbPosterURL.Visibility = Visibility.Visible;
+            tbPosterURL.IsEnabled = true;
+
+            bCancel.Visibility = Visibility.Visible;
+            bCancel.IsEnabled = true;
+            bSave.Visibility = Visibility.Visible;
+            bSave.IsEnabled = true;
+
+            db.Last();
+        }
+        private void SetToViewMode()
+        {
+            db.Clear();
+
+            tbTitle.IsEnabled = false;
+            tbDuration.IsEnabled = false;
+            tbBudget.IsEnabled = false;
+            tbDirector.IsEnabled = false;
+            gbGenre.IsEnabled = false;
+            lbCast.IsEnabled = false;
+            tbCast.Visibility = Visibility.Collapsed;
+            tbYear.IsEnabled = false;
+            gbRating.IsEnabled = false;
+
+            bAdd.IsEnabled = false;
+            bAdd.Visibility = Visibility.Collapsed;
+            bDelete.IsEnabled = false;
+            bDelete.Visibility = Visibility.Collapsed;
+
+            bFirst.Visibility = Visibility.Visible;
+            bPrevious.Visibility = Visibility.Visible;
+            bLast.Visibility = Visibility.Visible;
+            bNext.Visibility = Visibility.Visible;
+
+            lPoster.Visibility = Visibility.Visible;
+            iPoster.Visibility = Visibility.Visible;
+            lPosterURL.Visibility = Visibility.Collapsed;
+            lPosterURL.IsEnabled = false;
+            tbPosterURL.Visibility = Visibility.Collapsed;
+            tbPosterURL.IsEnabled = false;
+
+            bCancel.Visibility = Visibility.Collapsed;
+            bCancel.IsEnabled = false; ;
+            bSave.Visibility = Visibility.Collapsed;
+            bSave.IsEnabled = false;
+
+            db.Last();
+        }
+        private void SetToCreateMode()
+        {
+            //Instantiate new movie and set all fields to blank
+            Movie movie = new Movie();
+
+            tbTitle.Text = string.Empty;
+            tbYear.Text = string.Empty;
+            tbDirector.Text = string.Empty;
+            tbDuration.Text = string.Empty;
+            tbBudget.Text = string.Empty;
+            tbPosterURL.Text = string.Empty;
+            iPoster.Source = null;
+
+            rbRate1.IsChecked = false;
+            rbRate2.IsChecked = false;
+            rbRate2.IsChecked = false;
+            rbRate4.IsChecked = false;
+            rbRate5.IsChecked = false;
+
+            cbComedy.IsChecked = false;
+            cbAction.IsChecked = false;
+            cbThriller.IsChecked = false;
+            cbHorror.IsChecked = false;
+            cbRomance.IsChecked = false;
+            cbSciFi.IsChecked = false;
+            cbWestern.IsChecked = false;
+            cbFamily.IsChecked = false;
+            cbWar.IsChecked = false;
+            
+            tbTitle.IsEnabled = true;
+            tbDuration.IsEnabled = true;
+            tbBudget.IsEnabled = true;
+            tbDirector.IsEnabled = true;
+            gbGenre.IsEnabled = true;
+            lbCast.IsEnabled = true;
+            tbCast.Visibility = Visibility.Visible;
+            tbYear.IsEnabled = true;
+            gbRating.IsEnabled = true;
+
+            bAdd.IsEnabled = true;
+            bAdd.Visibility = Visibility.Visible;
+            bDelete.IsEnabled = true;
+            bDelete.Visibility = Visibility.Visible;
+
+            bFirst.Visibility = Visibility.Collapsed;
+            bPrevious.Visibility = Visibility.Collapsed;
+            bLast.Visibility = Visibility.Collapsed;
+            bNext.Visibility = Visibility.Collapsed;
+
+            lPoster.Visibility = Visibility.Collapsed;
+            iPoster.Visibility = Visibility.Collapsed;
+            lPosterURL.Visibility = Visibility.Visible;
+            lPosterURL.IsEnabled = true;
+            tbPosterURL.Visibility = Visibility.Visible;
+            tbPosterURL.IsEnabled = true;
+
+            bCancel.Visibility = Visibility.Visible;
+            bCancel.IsEnabled = true;
+            bSave.Visibility = Visibility.Visible;
+            bSave.IsEnabled = true;
+
+            Clear();
+
+            if (EditSaveClicked == true)
+            {
+                db.Add(movie);
+                UpdateModelFromUI();
+                db.Last();
+                UpdateUIFromModel();
+            }
+            else if (EditCancelClicked == true)
+            {
+                MessageBox.Show("Are you sure you want to cancel and return to view mode? You will lose any unsaved data", "Warning");
+            }
+
+            EditSaveClicked = false;
+            EditCancelClicked = false;
            
         }
     }
