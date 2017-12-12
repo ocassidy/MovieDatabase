@@ -35,7 +35,7 @@ namespace MovieDatabase
             mode = WindowMode.View;
         }
 
-        private Movie UpdateUIFromModel(Movie m)
+        private void UpdateUIFromModel(Movie m)
         {
             //Updates the UI from the model
             tbTitle.Text = m != null ? m.Title : "";
@@ -45,7 +45,7 @@ namespace MovieDatabase
             tbBudget.Text = m != null ? m.Budget.ToString() : "";
             tbPosterURL.Text = m != null ? m.Poster : "";
             iPoster.Source = new BitmapImage(new Uri(m.Poster));
-            
+
 
             //if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
             //{
@@ -121,7 +121,6 @@ namespace MovieDatabase
             {
                 lbCast.Items.Add(actors);
             }
-             return m;
         }
 
         private Movie UpdateModelFromUI(Movie m)
@@ -191,7 +190,7 @@ namespace MovieDatabase
 
             m.Genre = editList;
             //
-            List<string> editActors = new List<string> { };
+            List<string> editActors = new List<string>();
             foreach (string actors in lbCast.Items)
             {
                 editActors.Add(actors);
@@ -202,9 +201,10 @@ namespace MovieDatabase
 
         //Dockpanel menu items start
         private void New_Click(object sender, RoutedEventArgs e)
-        {
+        {       
             db = new Database();
-            UpdateUIFromModel(db.Get());
+            UpdateUIFromModel(new Movie());
+            SetToEditMode();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
