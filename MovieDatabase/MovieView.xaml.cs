@@ -151,49 +151,52 @@ namespace MovieDatabase
             //    MessageBox.Show("Invalid Poster URL", "Error");
             //}
 
+            List<Genres> editList = new List<Genres> { };
             if (cbComedy.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Comedy);
+                editList.Add(Genres.Comedy);
             }
             if (cbAction.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Action);
+                editList.Add(Genres.Action);
             }
             if (cbThriller.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Thriller);
+                editList.Add(Genres.Thriller);
             }
             if (cbHorror.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Horror);
+                editList.Add(Genres.Horror);
             }
             if (cbRomance.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Romance);
+                editList.Add(Genres.Romance);
             }
             if (cbSciFi.IsChecked.Value)
             {
-                m.Genre.Add(Genres.SciFi);
+                editList.Add(Genres.SciFi);
             }
             if (cbWestern.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Western);
+                editList.Add(Genres.Western);
             }
             if (cbFamily.IsChecked.Value)
             {
-                m.Genre.Add(Genres.Family);
+                editList.Add(Genres.Family);
             }
             if (cbWar.IsChecked.Value)
             {
-                m.Genre.Add(Genres.War);
+                editList.Add(Genres.War);
             }
 
+            m.Genre = editList;
             //
+            List<string> editActors = new List<string> { };
             foreach (string actors in lbCast.Items)
             {
-                m.Actors.ToString();
+                editActors.Add(actors);
             }
-
+            m.Actors = editActors;
             return m;
         }
 
