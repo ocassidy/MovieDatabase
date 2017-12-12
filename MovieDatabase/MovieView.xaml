@@ -108,8 +108,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Content="Cast" Grid.Column="0" Grid.Row="0"/>
-                        <TextBox x:Name="tbCast" Padding="1"  Margin="5" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
-                        <ListBox x:Name="lbCast" Padding="1"  Margin="5" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
+                        <TextBox x:Name="tbCast" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
+                        <ListBox x:Name="lbCast" Padding="1" Margin="5" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
                         
                         <Button x:Name="bAdd" Style="{DynamicResource SquareButtonStyle}" Content="Add" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="AddCast_Click" Grid.Column="1" Grid.Row="1"/>
                         <Button x:Name="bDelete" Style="{DynamicResource SquareButtonStyle}" Content="Delete" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="DeleteCast_Click" Grid.Column="2" Grid.Row="1"/>

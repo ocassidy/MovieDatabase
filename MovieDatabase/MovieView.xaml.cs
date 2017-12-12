@@ -39,25 +39,18 @@ namespace MovieDatabase
         {
             //Updates the UI from the model
             tbTitle.Text = m != null ? m.Title : "";
-            tbYear.Text = m != null ? m.Year.ToString() : "";
+            tbYear.Text = m != null ? m.Year.ToString() : "0";
             tbDirector.Text = m != null ? m.Director : "";
-            tbDuration.Text = m != null ? m.Duration.ToString() : "";
-            tbBudget.Text = m != null ? m.Budget.ToString() : "";
+            tbDuration.Text = m != null ? m.Duration.ToString() : "0";
+            tbBudget.Text = m != null ? m.Budget.ToString() : "0";
             tbPosterURL.Text = m != null ? m.Poster : "";
-            iPoster.Source = new BitmapImage(new Uri(m.Poster));
+            //iPoster.Source = new BitmapImage(new Uri(m.Poster));
 
-
-            //if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
-            //{
-            //var uri = new Uri(m.Poster, UriKind.Absolute);
-            //iPoster.Source = new BitmapImage(uri);
-            //}
-            //else
-            //{
-            //    // the path is not a valid URI
-            ////    iPoster.Source = null;
-            //    MessageBox.Show("Invalid Poster URL", "Error");
-            //}
+            if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
+            {
+                var uri = new Uri(m.Poster, UriKind.Absolute);
+                iPoster.Source = new BitmapImage(uri);
+            }
 
             if (m.Rating == 1)
             {
@@ -121,6 +114,8 @@ namespace MovieDatabase
             {
                 lbCast.Items.Add(actors);
             }
+
+            NavChecks();
         }
 
         private Movie UpdateModelFromUI(Movie m)
@@ -150,61 +145,63 @@ namespace MovieDatabase
             //    MessageBox.Show("Invalid Poster URL", "Error");
             //}
 
-            List<Genres> editList = new List<Genres> { };
             if (cbComedy.IsChecked.Value)
             {
-                editList.Add(Genres.Comedy);
+                m.Genre.Add(Genres.Comedy);
             }
             if (cbAction.IsChecked.Value)
             {
-                editList.Add(Genres.Action);
+                m.Genre.Add(Genres.Action);
             }
             if (cbThriller.IsChecked.Value)
             {
-                editList.Add(Genres.Thriller);
+                m.Genre.Add(Genres.Thriller);
             }
             if (cbHorror.IsChecked.Value)
             {
-                editList.Add(Genres.Horror);
+                m.Genre.Add(Genres.Horror);
             }
             if (cbRomance.IsChecked.Value)
             {
-                editList.Add(Genres.Romance);
+                m.Genre.Add(Genres.Romance);
             }
             if (cbSciFi.IsChecked.Value)
             {
-                editList.Add(Genres.SciFi);
+                m.Genre.Add(Genres.SciFi);
             }
             if (cbWestern.IsChecked.Value)
             {
-                editList.Add(Genres.Western);
+                m.Genre.Add(Genres.Western);
             }
             if (cbFamily.IsChecked.Value)
             {
-                editList.Add(Genres.Family);
+                m.Genre.Add(Genres.Family);
             }
             if (cbWar.IsChecked.Value)
             {
-                editList.Add(Genres.War);
+                m.Genre.Add(Genres.War);
             }
 
-            m.Genre = editList;
             //
-            List<string> editActors = new List<string>();
             foreach (string actors in lbCast.Items)
             {
-                editActors.Add(actors);
+                m.Actors.ToString();
             }
-            m.Actors = editActors;
             return m;
         }
 
         //Dockpanel menu items start
         private void New_Click(object sender, RoutedEventArgs e)
-        {       
+        {
             db = new Database();
-            UpdateUIFromModel(new Movie());
-            SetToEditMode();
+            tbTitle.Text = null;
+            tbYear.Text = null;
+            tbDirector.Text = null;
+            tbDuration.Text = null;
+            tbBudget.Text = null;
+            iPoster.Source = null;
+            NavClear();
+            NavChecks();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -239,6 +236,7 @@ namespace MovieDatabase
                 bPrev.IsEnabled = true;
                 bLast.IsEnabled = true;
                 bFirst.IsEnabled = true;
+                NavChecks();
             }
         }
 
@@ -272,8 +270,8 @@ namespace MovieDatabase
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            SetToEditMode();
             UpdateUIFromModel(new Movie());
+            SetToEditMode();
             mode = WindowMode.Create;
         }
 
@@ -287,15 +285,15 @@ namespace MovieDatabase
 
         private void OrderbyTitle_Click(object sender, RoutedEventArgs e)
         {
-            db.OrderByTitle();
-            db.First();
+            db.OrderByTitle();          
+            NavClear();
             UpdateUIFromModel(db.Get());
+            db.First();
         }
 
         private void OrderbyYear_Click(object sender, RoutedEventArgs e)
         {
             db.OrderByTitle();
-            db.First();
             NavClear();
             UpdateUIFromModel(db.Get());
         }
@@ -303,9 +301,10 @@ namespace MovieDatabase
         private void OrderbyDuration_Click(object sender, RoutedEventArgs e)
         {
             db.OrderByDuration();
-            db.First();
             NavClear();
             UpdateUIFromModel(db.Get());
+            db.First();
+
         }
         //Dockpanel menu items end
 
@@ -315,7 +314,7 @@ namespace MovieDatabase
             if (db.First())
             {
                 NavClear();
-                UpdateUIFromModel(db.Get());     
+                UpdateUIFromModel(db.Get());
             }
         }
 
@@ -334,7 +333,7 @@ namespace MovieDatabase
             {
                 NavClear();
                 UpdateUIFromModel(db.Get());
-            }           
+            }
         }
 
         private void Last_Click(object sender, RoutedEventArgs e)
@@ -343,7 +342,7 @@ namespace MovieDatabase
             {
                 NavClear();
                 UpdateUIFromModel(db.Get());
-            }        
+            }
         }
 
         private void AddCast_Click(object sender, RoutedEventArgs e)
@@ -462,10 +461,31 @@ namespace MovieDatabase
             bSave.Visibility = Visibility.Collapsed;
             bSave.IsEnabled = false;
         }
-     
+        private void NavChecks()
+        {
+            if (db.Index == db.Count - 1)
+            {
+                bNext.IsEnabled = false;
+                bLast.IsEnabled = false;
+            }
+            else if (db.Index == 0)
+            {
+                bFirst.IsEnabled = false;
+                bPrev.IsEnabled = false;
+            }
+            else
+            {
+                bNext.IsEnabled = true;
+                bLast.IsEnabled = true;
+                bFirst.IsEnabled = true;
+                bPrev.IsEnabled = true;
+            }
+        }
+
         //Navigational Clears
         private void NavClear()
         {
+            tbCast.Text = null;
             lbCast.Items.Clear();
 
             rbRate1.IsChecked = false;
@@ -485,5 +505,4 @@ namespace MovieDatabase
             cbWar.IsChecked = false;
         }
     }
-
 }
