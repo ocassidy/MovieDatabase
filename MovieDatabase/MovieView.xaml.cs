@@ -422,6 +422,7 @@ namespace MovieDatabase
             if (mb == MessageBoxResult.Yes)
             {
                 SetToViewMode();
+                NavClear();
                 UpdateUIFromModel(db.Get());
                 mode = WindowMode.View;
             }
@@ -491,7 +492,7 @@ namespace MovieDatabase
             tbPosterURL.IsEnabled = false;
 
             bCancel.Visibility = Visibility.Collapsed;
-            bCancel.IsEnabled = false; ;
+            bCancel.IsEnabled = false;
             bSave.Visibility = Visibility.Collapsed;
             bSave.IsEnabled = false;
         }
@@ -501,11 +502,15 @@ namespace MovieDatabase
             {
                 bNext.IsEnabled = false;
                 bLast.IsEnabled = false;
+                bFirst.IsEnabled = true;
+                bPrev.IsEnabled = true;
             }
             else if (db.Index == 0)
             {
                 bFirst.IsEnabled = false;
                 bPrev.IsEnabled = false;
+                bNext.IsEnabled = true;
+                bLast.IsEnabled = true;
             }
             else
             {
