@@ -11,134 +11,135 @@
         BorderThickness="1"
                       
         Title="Movie Database" Height="550"  Width="1000" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" MinHeight="400" MinWidth="400">
+    <ScrollViewer>
+        <Border Margin="5">
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="File" x:Name="File">
+                        <MenuItem Header="_New" x:Name="New" Click="New_Click"/>
+                        <MenuItem Header="_Open" x:Name="Open" Click="Open_Click"/>
+                        <MenuItem Header="_Save" x:Name="Save" Click="Save_Click"/>
+                        <Separator/>
+                        <MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click"/>
+                    </MenuItem>
 
-    <Border Margin="5">
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File" x:Name="File">
-                    <MenuItem Header="_New" x:Name="New" Click="New_Click"/>
-                    <MenuItem Header="_Open" x:Name="Open" Click="Open_Click"/>
-                    <MenuItem Header="_Save" x:Name="Save" Click="Save_Click"/>
-                    <Separator/>
-                    <MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click"/>
-                </MenuItem>
+                    <MenuItem Header="_Edit" x:Name="Edit">
+                        <MenuItem Header="_Create" x:Name="Create" Click="Create_Click"/>
+                        <Separator/>
+                        <MenuItem Header="_Edit" x:Name="eEdit" Click="Edit_Click"/>
+                        <MenuItem Header="_Delete" x:Name="Delete" Click="Delete_Click"/>
+                    </MenuItem>
 
-                <MenuItem Header="_Edit" x:Name="Edit">
-                    <MenuItem Header="_Create" x:Name="Create" Click="Create_Click"/>
-                    <Separator/>
-                    <MenuItem Header="_Edit" x:Name="eEdit" Click="Edit_Click"/>
-                    <MenuItem Header="_Delete" x:Name="Delete" Click="Delete_Click"/>
-                </MenuItem>
+                    <MenuItem Header="_View" x:Name="View" >
+                        <MenuItem Header="_View" x:Name="eView" Click="View_Click"/>
+                        <MenuItem Header="_Sort by Title" x:Name="byTitle" Click="OrderbyTitle_Click"/>
+                        <MenuItem Header="_Sort by Year" x:Name="byYear" Click="OrderbyYear_Click"/>
+                        <MenuItem Header="_Sort by Duration" x:Name="byDuration" Click="OrderbyDuration_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_Help" x:Name="Help" Click="Help_Click"/>
+                </Menu>
 
-                <MenuItem Header="_View" x:Name="View" >
-                    <MenuItem Header="_View" x:Name="eView" Click="View_Click"/>
-                    <MenuItem Header="_Sort by Title" x:Name="byTitle" Click="OrderbyTitle_Click"/>
-                    <MenuItem Header="_Sort by Year" x:Name="byYear" Click="OrderbyYear_Click"/>
-                    <MenuItem Header="_Sort by Duration" x:Name="byDuration" Click="OrderbyDuration_Click"/>
-                </MenuItem>
-                <MenuItem Header="_Help" x:Name="Help" Click="Help_Click"/>
-            </Menu>
+                <WrapPanel>
+                    <StackPanel Margin="5">
+                        <Label Content="Title" Grid.Column="0" Grid.Row="0" Padding="1"  Margin="5"/>
+                        <TextBox x:Name="tbTitle" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="1" Padding="1"  Margin="5" IsEnabled="False"/>
 
-            <WrapPanel>
-                <StackPanel Margin="5">
-                    <Label Content="Title" Grid.Column="0" Grid.Row="0" Padding="1"  Margin="5"/>
-                    <TextBox x:Name="tbTitle" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="1" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="25*" />
+                            </Grid.ColumnDefinitions>
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100*" />
-                            <ColumnDefinition Width="25*" />
-                        </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Duration (mins)" Padding="1"  Margin="5"/>
+                                <TextBox x:Name="tbDuration" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False" KeyDown="IntegerFieldsValidation_KeyDown"/>
 
-                        <StackPanel Grid.Column="0">
-                            <Label Content="Duration (mins)" Padding="1"  Margin="5"/>
-                            <TextBox x:Name="tbDuration" Controls:TextBoxHelper.ClearTextButton="True" Padding="1"  Margin="5" IsEnabled="False"/>
+                                <Label Content="Budget (millions $)"/>
+                                <TextBox x:Name="tbBudget" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="5" Padding="1" Margin="5" IsEnabled="False" KeyDown="IntegerFieldsValidation_KeyDown"/>
+                            </StackPanel>
 
-                            <Label Content="Budget (millions $)"/>
-                            <TextBox x:Name="tbBudget" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Grid.Row="5" Padding="1"  Margin="5" IsEnabled="False"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Label Content="Year" Padding="1" Margin="5"/>
+                                <TextBox x:Name="tbYear" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False" KeyDown="IntegerFieldsValidation_KeyDown"/>
 
-                        <StackPanel Grid.Column="1">
-                            <Label Content="Year" Padding="1" Margin="5"/>
-                            <TextBox x:Name="tbYear" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False"/>
+                                <GroupBox x:Name="gbRating" Header="Rating" IsEnabled="False">
+                                    <WrapPanel Margin="5">
+                                        <RadioButton x:Name="rbRate1" Content="1" Margin="5" />
+                                        <RadioButton x:Name="rbRate2" Content="2" Margin="5" />
+                                        <RadioButton x:Name="rbRate3" Content="3" Margin="5" />
+                                        <RadioButton x:Name="rbRate4" Content="4" Margin="5" />
+                                        <RadioButton x:Name="rbRate5" Content="5" Margin="5" />
+                                    </WrapPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
 
-                            <GroupBox x:Name="gbRating" Header="Rating"  IsEnabled="False">
-                                <WrapPanel Margin="5">
-                                    <RadioButton x:Name="rbRate1" Content="1" Margin="5" />
-                                    <RadioButton x:Name="rbRate2" Content="2" Margin="5" />
-                                    <RadioButton x:Name="rbRate3" Content="3" Margin="5" />
-                                    <RadioButton x:Name="rbRate4" Content="4" Margin="5" />
-                                    <RadioButton x:Name="rbRate5" Content="5" Margin="5" />
-                                </WrapPanel>
-                            </GroupBox>
-                        </StackPanel>
-                    </Grid>
+                        <Label Content="Director" Grid.Column="0"/>
+                        <TextBox x:Name="tbDirector" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Padding="1" Margin="5" IsEnabled="False"/>
 
-                    <Label Content="Director" Grid.Column="0"/>
-                    <TextBox x:Name="tbDirector" Controls:TextBoxHelper.ClearTextButton="True" Grid.Column="0" Padding="1"  Margin="5" IsEnabled="False"/>
+                        <GroupBox x:Name="gbGenre" Grid.Column="0" Header="Genre" IsEnabled="False">
+                            <WrapPanel >
+                                <CheckBox Name="cbComedy" Content="Comedy" Margin="5"/>
+                                <CheckBox Name="cbRomance"  Content="Romance" Margin="5"/>
+                                <CheckBox Name="cbAction" Content="Action" Margin="5"/>
+                                <CheckBox Name="cbThriller" Content="Thriller" Margin="5"/>
+                                <CheckBox Name="cbFamily" Content="Family" Margin="5"/>
+                                <CheckBox Name="cbHorror" Content="Horror" Margin="5"/>
+                                <CheckBox Name="cbWestern" Content="Western" Margin="5"/>
+                                <CheckBox Name="cbSciFi" Content="SciFi" Margin="5"/>
+                                <CheckBox Name="cbWar" Content="War" Margin="5"/>
+                            </WrapPanel>
+                        </GroupBox>
 
-                    <GroupBox x:Name="gbGenre" Grid.Column="0" Header="Genre" IsEnabled="False">
-                        <WrapPanel >
-                            <CheckBox Name="cbComedy" Content="Comedy" Margin="5"/>
-                            <CheckBox Name="cbRomance"  Content="Romance" Margin="5"/>
-                            <CheckBox Name="cbAction" Content="Action" Margin="5"/>
-                            <CheckBox Name="cbThriller" Content="Thriller" Margin="5"/>
-                            <CheckBox Name="cbFamily" Content="Family" Margin="5"/>
-                            <CheckBox Name="cbHorror" Content="Horror" Margin="5"/>
-                            <CheckBox Name="cbWestern" Content="Western" Margin="5"/>
-                            <CheckBox Name="cbSciFi" Content="SciFi" Margin="5"/>
-                            <CheckBox Name="cbWar" Content="War" Margin="5"/>
-                        </WrapPanel>
-                    </GroupBox>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                            <Label Content="Cast" Grid.Column="0" Grid.Row="0"/>
+                            <TextBox x:Name="tbCast" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
+                            <ListBox x:Name="lbCast" Padding="1" Margin="5" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
 
-                        <Label Content="Cast" Grid.Column="0" Grid.Row="0"/>
-                        <TextBox x:Name="tbCast" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
-                        <ListBox x:Name="lbCast" Padding="1" Margin="5" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
-                        
-                        <Button x:Name="bAdd" Style="{DynamicResource SquareButtonStyle}" Content="Add" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="AddCast_Click" Grid.Column="1" Grid.Row="1"/>
-                        <Button x:Name="bDelete" Style="{DynamicResource SquareButtonStyle}" Content="Delete" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="DeleteCast_Click" Grid.Column="2" Grid.Row="1"/>
+                            <Button x:Name="bAdd" Style="{DynamicResource SquareButtonStyle}" Content="Add" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="AddCast_Click" Grid.Column="1" Grid.Row="1"/>
+                            <Button x:Name="bDelete" Style="{DynamicResource SquareButtonStyle}" Content="Delete" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Click="DeleteCast_Click" Grid.Column="2" Grid.Row="1"/>
 
-                    </Grid>
-                    <Label x:Name="lPosterURL" Content="Poster URL" Visibility="Collapsed" Grid.Column="0" Grid.Row="0"/>
-                    <TextBox x:Name="tbPosterURL" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        </Grid>
+                        <Label x:Name="lPosterURL" Content="Poster URL" Visibility="Collapsed" Grid.Column="0" Grid.Row="0"/>
+                        <TextBox x:Name="tbPosterURL" Controls:TextBoxHelper.ClearTextButton="True" Padding="1" Margin="5" IsEnabled="False" Visibility="Collapsed" Grid.Column="0" Grid.Row="1"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Button x:Name="bFirst" Style="{DynamicResource SquareButtonStyle}" Content="First" Grid.Column="0" Padding="1"  Margin="5" Click="First_Click" IsEnabled="False"/>
-                        <Button x:Name="bPrev" Style="{DynamicResource SquareButtonStyle}" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click" IsEnabled="False"/>
-                        <Button x:Name="bNext" Style="{DynamicResource SquareButtonStyle}" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False"/>
-                        <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
+                            <Button x:Name="bFirst" Style="{DynamicResource SquareButtonStyle}" Content="First" Grid.Column="0" Padding="1"  Margin="5" Click="First_Click" IsEnabled="False"/>
+                            <Button x:Name="bPrev" Style="{DynamicResource SquareButtonStyle}" Content="Previous" Grid.Column="1" Padding="1"  Margin="5" Click="Previous_Click" IsEnabled="False"/>
+                            <Button x:Name="bNext" Style="{DynamicResource SquareButtonStyle}" Content="Next" Grid.Column="2" Padding="1"  Margin="5" Click="Next_Click" IsEnabled="False"/>
+                            <Button x:Name="bLast" Style="{DynamicResource SquareButtonStyle}" Content="Last" Grid.Column="3" Padding="1"  Margin="5" Click="Last_Click" IsEnabled="False"/>
 
-                        <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Cancel_Click" IsEnabled="False" Visibility="Collapsed"/>
-                        <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="EditSave_Click" IsEnabled="False" Visibility="Collapsed"/>
-                    </Grid>
-                </StackPanel>
-                <StackPanel>
-                    <Label x:Name="lPoster" Content="Poster" Padding="1" Margin="5"/>
-                    <Image x:Name="iPoster" Margin="5" Height ="400" Width ="300" />
-                </StackPanel>
-            </WrapPanel>
-        </DockPanel>
-    </Border>
+                            <Button x:Name="bCancel" Style="{DynamicResource SquareButtonStyle}" Content="Cancel" Grid.Column="3" Padding="1"  Margin="5" Click="Cancel_Click" IsEnabled="False" Visibility="Collapsed"/>
+                            <Button x:Name="bSave" Style="{DynamicResource SquareButtonStyle}" Content="Save" FontWeight="Bold" Grid.Column="2" Padding="1"  Margin="5" Click="EditSave_Click" IsEnabled="False" Visibility="Collapsed"/>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label x:Name="lPoster" Content="Poster" Padding="1" Margin="5"/>
+                        <Image x:Name="iPoster" Margin="5" Height ="400" Width ="300" />
+                    </StackPanel>
+                </WrapPanel>
+            </DockPanel>
+        </Border>
+    </ScrollViewer>
 </Controls:MetroWindow>

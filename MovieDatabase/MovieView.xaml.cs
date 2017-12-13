@@ -37,85 +37,98 @@ namespace MovieDatabase
 
         private void UpdateUIFromModel(Movie m)
         {
-            //Updates the UI from the model
-            tbTitle.Text = m != null ? m.Title : "";
-            tbYear.Text = m != null ? m.Year.ToString() : "0";
-            tbDirector.Text = m != null ? m.Director : "";
-            tbDuration.Text = m != null ? m.Duration.ToString() : "0";
-            tbBudget.Text = m != null ? m.Budget.ToString() : "0";
-            tbPosterURL.Text = m != null ? m.Poster : "";
-            //iPoster.Source = new BitmapImage(new Uri(m.Poster));
+            try
+            {
+                //Updates the UI from the model
+                tbTitle.Text = m != null ? m.Title : "";
+                tbYear.Text = m != null ? m.Year.ToString() : "0";
+                tbDirector.Text = m != null ? m.Director : "";
+                tbDuration.Text = m != null ? m.Duration.ToString() : "0";
+                tbBudget.Text = m != null ? m.Budget.ToString() : "0";
+                tbPosterURL.Text = m != null ? m.Poster : "";
+                //iPoster.Source = new BitmapImage(new Uri(m.Poster));
 
-            if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
-            {
-                var uri = new Uri(m.Poster, UriKind.Absolute);
-                iPoster.Source = new BitmapImage(uri);
-            }
+                if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
+                {
+                    var uri = new Uri(m.Poster, UriKind.Absolute);
+                    iPoster.Source = new BitmapImage(uri);
+                }
+                else
+                {
+                    // the path is not a valid URI
+                    iPoster.Source = null;
+                }
 
-            if (m.Rating == 1)
-            {
-                rbRate1.IsChecked = true;
-            }
-            else if (m.Rating == 2)
-            {
-                rbRate2.IsChecked = true;
-            }
-            else if (m.Rating == 3)
-            {
-                rbRate3.IsChecked = true;
-            }
-            else if (m.Rating == 4)
-            {
-                rbRate4.IsChecked = true;
-            }
-            else if (m.Rating == 5)
-            {
-                rbRate5.IsChecked = true;
-            }
+                if (m.Rating == 1)
+                {
+                    rbRate1.IsChecked = true;
+                }
+                else if (m.Rating == 2)
+                {
+                    rbRate2.IsChecked = true;
+                }
+                else if (m.Rating == 3)
+                {
+                    rbRate3.IsChecked = true;
+                }
+                else if (m.Rating == 4)
+                {
+                    rbRate4.IsChecked = true;
+                }
+                else if (m.Rating == 5)
+                {
+                    rbRate5.IsChecked = true;
+                }
 
-            if (m.Genre.Contains(Genres.Comedy))
-            {
-                cbComedy.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Action))
-            {
-                cbAction.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Thriller))
-            {
-                cbThriller.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Horror))
-            {
-                cbHorror.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Romance))
-            {
-                cbRomance.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.SciFi))
-            {
-                cbSciFi.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Western))
-            {
-                cbWestern.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.Family))
-            {
-                cbFamily.IsChecked = true;
-            }
-            if (m.Genre.Contains(Genres.War))
-            {
-                cbWar.IsChecked = true;
-            }
+                if (m.Genre.Contains(Genres.Comedy))
+                {
+                    cbComedy.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Action))
+                {
+                    cbAction.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Thriller))
+                {
+                    cbThriller.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Horror))
+                {
+                    cbHorror.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Romance))
+                {
+                    cbRomance.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.SciFi))
+                {
+                    cbSciFi.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Western))
+                {
+                    cbWestern.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.Family))
+                {
+                    cbFamily.IsChecked = true;
+                }
+                if (m.Genre.Contains(Genres.War))
+                {
+                    cbWar.IsChecked = true;
+                }
 
-            foreach (string actors in m.Actors)
-            {
-                lbCast.Items.Add(actors);
+                foreach (string actors in m.Actors.Distinct().ToList())
+                {
+                    lbCast.Items.Add(actors);
+                }
+                NavChecks();
             }
-
-            NavChecks();
+            catch (NullReferenceException)
+            {
+                //If a NullReferenceException is thrown reboot the app
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
         }
 
         private Movie UpdateModelFromUI(Movie m)
@@ -132,18 +145,10 @@ namespace MovieDatabase
                               rbRate4.IsChecked.Value ? m.Rating = 4 :
                               rbRate5.IsChecked.Value ? m.Rating = 5 : m.Rating;
 
-            //if (Uri.IsWellFormedUriString(tbPosterURL.Text, UriKind.Absolute))
-            //{
             // create the url and add as a string to the iPoster
             var uri = new Uri(tbPosterURL.Text, UriKind.Absolute);
             m.Poster = (uri.ToString());
             iPoster.Source = new BitmapImage(uri);
-            //}
-            //else
-            //{
-            //    // the path is not a valid URI
-            //    MessageBox.Show("Invalid Poster URL", "Error");
-            //}
 
             if (cbComedy.IsChecked.Value)
             {
@@ -185,7 +190,7 @@ namespace MovieDatabase
             //
             foreach (string actors in lbCast.Items)
             {
-                m.Actors.ToString();
+                m.Actors.ToString().Distinct().ToList();
             }
             return m;
         }
@@ -229,6 +234,7 @@ namespace MovieDatabase
             if (dialog.ShowDialog() == true)
             {
                 db.Load(dialog.FileName);
+                NavClear();
                 db.First();
                 UpdateUIFromModel(db.Get());
                 // update navigation
@@ -242,7 +248,14 @@ namespace MovieDatabase
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            //Prompts message confirming exit
+            var mb = MessageBox.Show("Are you sure you want to exit the application? If yes, you will lose any unsaved data.",
+                "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (mb == MessageBoxResult.Yes)
+            {
+                this.Close(); //Application closes if user selects 'Yes'
+            }
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
@@ -265,7 +278,13 @@ namespace MovieDatabase
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(mode.ToString());
+            // Displays a messagebox showing the application title and group members on separate lines with an 'OK' button 
+            MessageBox.Show("Movie Database:" + Environment.NewLine + Environment.NewLine +
+                "Group Members:" + Environment.NewLine +
+                "Oisin Cassidy B00714881" + Environment.NewLine +
+                "Matthew Osinski B00713853" + Environment.NewLine +
+                "Aoife Boyle B00529417" + Environment.NewLine +
+                "You are in " + mode.ToString() + " mode.", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
@@ -277,15 +296,15 @@ namespace MovieDatabase
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            //Deletes record currently on screen, updates UI
             db.Delete();
-
             UpdateUIFromModel(db.Get());
-            // update navigation
         }
 
         private void OrderbyTitle_Click(object sender, RoutedEventArgs e)
         {
-            db.OrderByTitle();          
+            //Orders by title clears CheckBoxes, RadioButtons and ListBoxes, updates UI then goes to the first record
+            db.OrderByTitle();
             NavClear();
             UpdateUIFromModel(db.Get());
             db.First();
@@ -293,6 +312,7 @@ namespace MovieDatabase
 
         private void OrderbyYear_Click(object sender, RoutedEventArgs e)
         {
+            //Orders by year clears CheckBoxes, RadioButtons and ListBoxes, updates UI then goes to the first record
             db.OrderByTitle();
             NavClear();
             UpdateUIFromModel(db.Get());
@@ -300,6 +320,7 @@ namespace MovieDatabase
 
         private void OrderbyDuration_Click(object sender, RoutedEventArgs e)
         {
+            //Orders by duration clears CheckBoxes, RadioButtons and ListBoxes, updates UI then goes to the first record
             db.OrderByDuration();
             NavClear();
             UpdateUIFromModel(db.Get());
@@ -311,6 +332,7 @@ namespace MovieDatabase
         //Navigation buttons start 
         private void First_Click(object sender, RoutedEventArgs e)
         {
+            //Goes to the first record then updates the UI
             if (db.First())
             {
                 NavClear();
@@ -320,6 +342,7 @@ namespace MovieDatabase
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
+            //Goes to the a previous record then updates the UI
             if (db.Prev())
             {
                 NavClear();
@@ -329,6 +352,7 @@ namespace MovieDatabase
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
+            //Goes to the next record then updates the UI
             if (db.Next())
             {
                 NavClear();
@@ -338,6 +362,7 @@ namespace MovieDatabase
 
         private void Last_Click(object sender, RoutedEventArgs e)
         {
+            //Goes to the last record then updates the UI
             if (db.Last())
             {
                 NavClear();
@@ -347,6 +372,7 @@ namespace MovieDatabase
 
         private void AddCast_Click(object sender, RoutedEventArgs e)
         {
+            //Checks to see if the tbCast textbox is empty if so do not populate list
             if (tbCast.Text.Length < 1)
             {
                 MessageBox.Show("Cannot add empty cast member!", "Error!");
@@ -359,6 +385,7 @@ namespace MovieDatabase
 
         private void DeleteCast_Click(object sender, RoutedEventArgs e)
         {
+            //Checks to see if the lbCast listbox is empty if so do not delete
             if (lbCast.Items.Count == 0)
             {
                 MessageBox.Show("The cast list is empty, cannot delete!", "Error!");
@@ -388,9 +415,16 @@ namespace MovieDatabase
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            SetToViewMode();
-            UpdateUIFromModel(db.Get());
-            mode = WindowMode.View;
+            //Prompts message confirming exit
+            var mb = MessageBox.Show("Are you sure you want to cancel ? If yes, you will lose any unsaved data.",
+                "Cancel", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (mb == MessageBoxResult.Yes)
+            {
+                SetToViewMode();
+                UpdateUIFromModel(db.Get());
+                mode = WindowMode.View;
+            }
         }
         private void SetToEditMode()
         {
@@ -503,6 +537,14 @@ namespace MovieDatabase
             cbSciFi.IsChecked = false;
             cbWestern.IsChecked = false;
             cbWar.IsChecked = false;
+        }
+        private void IntegerFieldsValidation_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            // stop key being passed on if its not a digit or period
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.OemPeriod)
+            {
+                e.Handled = true; // e refers to the Event that was raised 
+            }
         }
     }
 }
