@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieDatabase.Models;
+using System.Collections.Generic;
 
 namespace MovieDatabaseTestProject
 {
@@ -50,6 +51,31 @@ namespace MovieDatabaseTestProject
             Movie m4 = new Movie { Title = "Movie 4", Year = 2017, Duration = 50 };
             db.Add(m4);
             Assert.AreEqual(m4.Title, db.Get().Title);
+        }
+
+
+        [TestMethod]
+        public void TestUpdateThenIsCurrent()
+        {
+            // get first movie
+            Movie m = db.Get();
+            m.Title = "Updated Title";
+            m.Director = "Updated Director";
+            m.Year = 2000;
+            m.Duration = 100;
+            m.Genre = new List<Genres> { Genres.Action, Genres.Comedy };
+            m.Poster = "url";
+            m.Actors = new List<string> { "A1", "A2" };
+
+            db.Update(m);
+
+            Assert.AreEqual("Updated Title", db.Get().Title);
+            Assert.AreEqual("Updated Director", db.Get().Director);
+            Assert.AreEqual(2000, db.Get().Year);
+            Assert.AreEqual(100, db.Get().Duration);
+            Assert.AreEqual(2, db.Get().Genre.Count);
+            Assert.AreEqual("url", db.Get().Poster);
+            Assert.AreEqual(2, db.Get().Actors.Count);
         }
 
         [TestMethod]
@@ -162,5 +188,6 @@ namespace MovieDatabaseTestProject
             db.First();
             Assert.AreEqual(90, db.Get().Duration);
         }
+
     }
 }

@@ -64,6 +64,7 @@ C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\bin\Debug\System.Wind
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\bin\Debug\MahApps.Metro.pdb
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\bin\Debug\MahApps.Metro.xml
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase.csprojResolveAssemblyReference.cache
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieView.g.cs
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\App.g.cs
 C:\Users\Oisin\Documents\repos\MovieDatabase\MovieDatabase\obj\Debug\MovieDatabase_Content.g.cs
