@@ -145,10 +145,18 @@ namespace MovieDatabase
                               rbRate4.IsChecked.Value ? m.Rating = 4 :
                               rbRate5.IsChecked.Value ? m.Rating = 5 : m.Rating;
 
+            if (Uri.IsWellFormedUriString(m.Poster, UriKind.Absolute))
+            {
+                var uri = new Uri(tbPosterURL.Text, UriKind.Absolute);
+                m.Poster = (uri.ToString());
+                iPoster.Source = new BitmapImage(uri);
+            }
+            else
+            {
+                // the path is not a valid URI
+                iPoster.Source = null;
+            }
             // create the url and add as a string to the iPoster
-            var uri = new Uri(tbPosterURL.Text, UriKind.Absolute);
-            m.Poster = (uri.ToString());
-            iPoster.Source = new BitmapImage(uri);
 
             if (cbComedy.IsChecked.Value)
             {
@@ -498,19 +506,19 @@ namespace MovieDatabase
         }
         private void NavChecks()
         {
-            if (db.Index == db.Count - 1)
-            {
-                bNext.IsEnabled = false;
-                bLast.IsEnabled = false;
-                bFirst.IsEnabled = true;
-                bPrev.IsEnabled = true;
-            }
-            else if (db.Index == 0)
+            if (db.Index == 0 && db.Count > 1)
             {
                 bFirst.IsEnabled = false;
                 bPrev.IsEnabled = false;
                 bNext.IsEnabled = true;
                 bLast.IsEnabled = true;
+            }
+            else if (db.Index == db.Count - 1)
+            {
+                bNext.IsEnabled = false;
+                bLast.IsEnabled = false;
+                bFirst.IsEnabled = true;
+                bPrev.IsEnabled = true;
             }
             else
             {
